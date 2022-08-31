@@ -1,34 +1,21 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import usersRoutes from './routes/users.js';
+
+
+
 const app = express();
 const PORT = 8080 || PORT;
-
 app.use(express.json());
+
+app.use('/users', usersRoutes);
+
+
 
 app.listen(
     PORT,
-    () => console.log(`Server listening on ${PORT}`)
+    () => console.log(`Server Listening on ${PORT}`)
 );
 
-app.get('/tshirt', (req,res) => {
-    res.status(200).send({
-        tshirt : '🥋',
-        size : 'large'
-    })
-});
-
-app.post('/tshirt/:id',(req,res) =>
-{
-   const { id } = req.params;
-   const { logo } = req.body;
-
-   if(!logo)
-   {
-    res.status(418).send({message : 'We need a logo'})
-   }
-   res.send(
-    {
-        tshirt: `🥋 with your ${logo} and ID of ${id}`,
-    }
-   );
-     
-});
+app.get('/', (req,res) => res.send('Hello from homepage')
+);
